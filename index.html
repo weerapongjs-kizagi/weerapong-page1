@@ -1,12 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-<title>Page Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Port Folio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+    header {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 12px auto 0;
+      max-width: 680px;
+      line-height: 1.7;
+      opacity: 0.95;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      margin-top: 0;
+      color: #111827;
+      font-size: 1.4rem;
+    }
+    .about p {
+      line-height: 1.75;
+    }
+    .skills-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .skills-list li {
+      background: #eef2ff;
+      color: #1e3a8a;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .contact a {
+      display: inline-block;
+      margin-right: 14px;
+      margin-bottom: 10px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+    }
+    .checkin-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      background: #10b981;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .15s ease;
+    }
+    .checkin-button:hover {
+      transform: translateY(-1px);
+    }
+    .checkin-button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    .status {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 14px;
+      background: #f3f4f6;
+      color: #111827;
+      line-height: 1.6;
+    }
+    footer {
+      text-align: center;
+      color: #6b7280;
+      padding: 24px;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>สวัสดีครับ/ค่ะ ผมคือ Weerapong</h1>
+    <p>นักพัฒนาเว็บผู้ชื่นชอบการสร้างประสบการณ์ออนไลน์ที่สวยงาม ใช้งานได้จริง และอ่านง่าย ผมชอบเรียนรู้เทคโนโลยีใหม่ ๆ เพื่อสร้างผลงานที่ดีขึ้นเสมอ</p>
+  </header>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-<button>Click Me</button>
+  <main class="container">
+    <section class="card about">
+      <h2 class="section-title">เกี่ยวกับฉัน</h2>
+      <p>ผมมีความชำนาญในการพัฒนาเว็บด้วย HTML, CSS และ JavaScript พร้อมทั้งสนใจในการออกแบบ UI/UX และการทำเว็บให้ตอบสนองกับทุกอุปกรณ์ ปัจจุบันกำลังเรียนรู้และพัฒนาทักษะด้าน React และการสร้างเว็บแบบ SPA</p>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">ทักษะ</h2>
+      <ul class="skills-list">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>Responsive Design</li>
+        <li>React</li>
+        <li>Git</li>
+      </ul>
+    </section>
+
+    <section class="card contact">
+      <h2 class="section-title">ติดต่อ</h2>
+      <p>หากต้องการร่วมงานหรือสอบถามเพิ่มเติม ยินดีติดต่อได้ผ่านช่องทางต่อไปนี้</p>
+      <a href="mailto:youremail@example.com">อีเมล</a>
+      <a href="#">LinkedIn</a>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">เช็คชื่อด้วยโลเคชั่น</h2>
+      <p>กดปุ่มด้านล่างเพื่อเช็คชื่อด้วยตำแหน่งปัจจุบันของคุณ ระบบจะตรวจสอบว่าคุณอยู่ในรัศมีที่กำหนดหรือไม่</p>
+      <button id="checkinButton" class="checkin-button" type="button">เช็คชื่อ</button>
+      <div id="status" class="status">สถานะ: ยังไม่ได้เช็คชื่อ</div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Weerapong | Portfolio เว็บแนะนำตัว
+  </footer>
+
+  <script>
+    const officeLocation = { lat: 13.736717, lng: 100.523186 }; // พิกัดตัวอย่าง กรุงเทพฯ
+    const allowedRadius = 100; // เมตร
+    const checkinButton = document.getElementById('checkinButton');
+    const statusEl = document.getElementById('status');
+
+    function getDistanceMeters(lat1, lng1, lat2, lng2) {
+      const toRad = degree => degree * Math.PI / 180;
+      const R = 6371000;
+      const dLat = toRad(lat2 - lat1);
+      const dLng = toRad(lng2 - lng1);
+      const a = Math.sin(dLat / 2) ** 2 +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLng / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function updateStatus(message, success = false) {
+      statusEl.textContent = message;
+      statusEl.style.background = success ? '#ecfdf5' : '#f3f4f6';
+      statusEl.style.color = success ? '#064e3b' : '#111827';
+    }
+
+    function saveCheckin(time, distance) {
+      const record = {
+        time,
+        distance: Math.round(distance),
+        location: officeLocation,
+      };
+      localStorage.setItem('locationCheckin', JSON.stringify(record));
+    }
+
+    function checkin() {
+      if (!navigator.geolocation) {
+        updateStatus('อุปกรณ์หรือเบราว์เซอร์ของคุณไม่รองรับ Geolocation.', false);
+        return;
+      }
+
+      checkinButton.disabled = true;
+      updateStatus('กำลังตรวจสอบตำแหน่ง...', false);
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          const distance = getDistanceMeters(latitude, longitude, officeLocation.lat, officeLocation.lng);
+          const timestamp = new Date().toLocaleString('th-TH');
+
+          if (distance <= allowedRadius) {
+            updateStatus(`เช็คชื่อสำเร็จ! ระยะห่างจากสถานที่ ${Math.round(distance)} เมตร. เวลา ${timestamp}`, true);
+            saveCheckin(timestamp, distance);
+          } else {
+            updateStatus(`อยู่ไกลจากจุดเช็คชื่อ ${Math.round(distance)} เมตร เกินรัศมี ${allowedRadius} เมตร.`, false);
+          }
+
+          checkinButton.disabled = false;
+        },
+        error => {
+          let message = 'ไม่สามารถดึงตำแหน่งได้';
+          if (error.code === 1) message = 'ปฏิเสธการใช้งานตำแหน่ง';
+          if (error.code === 2) message = 'ไม่สามารถค้นหาตำแหน่งปัจจุบันได้';
+          if (error.code === 3) message = 'หมดเวลาการค้นหาตำแหน่ง';
+          updateStatus(`${message}.`, false);
+          checkinButton.disabled = false;
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      );
+    }
+
+    checkinButton.addEventListener('click', checkin);
+
+    const saved = localStorage.getItem('locationCheckin');
+    if (saved) {
+      const record = JSON.parse(saved);
+      updateStatus(`สถานะล่าสุด: เช็คชื่อเมื่อ ${record.time}, ระยะ ${record.distance} เมตร`, true);
+    }
+  </script>
 </body>
 </html>
