@@ -102,6 +102,11 @@
       color: #111827;
       line-height: 1.6;
     }
+    .status-note {
+      margin-top: 12px;
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
     footer {
       text-align: center;
       color: #6b7280;
@@ -146,6 +151,7 @@
       <p>กดปุ่มด้านล่างเพื่อเช็คชื่อด้วยตำแหน่งปัจจุบันของคุณ ระบบจะตรวจสอบว่าคุณอยู่ในรัศมีที่กำหนดหรือไม่</p>
       <button id="checkinButton" class="checkin-button" type="button">เช็คชื่อ</button>
       <div id="status" class="status">สถานะ: ยังไม่ได้เช็คชื่อ</div>
+      <p id="locationNote" class="status-note">หมายเหตุ: หากเปิดหน้าเว็บจากไฟล์โดยตรงหรือผ่าน HTTP บราว์เซอร์อาจไม่อนุญาตใช้งานตำแหน่ง ให้เปิดผ่าน HTTPS หรือ localhost</p>
     </section>
   </main>
 
@@ -158,6 +164,7 @@
     const allowedRadius = 100; // เมตร
     const checkinButton = document.getElementById('checkinButton');
     const statusEl = document.getElementById('status');
+    const locationNote = document.getElementById('locationNote');
 
     function getDistanceMeters(lat1, lng1, lat2, lng2) {
       const toRad = degree => degree * Math.PI / 180;
@@ -171,10 +178,10 @@
       return R * c;
     }
 
-    function updateStatus(message, success = false) {
+    function updateStatus(message, success = false, error = false) {
       statusEl.textContent = message;
       statusEl.style.background = success ? '#ecfdf5' : '#f3f4f6';
-      statusEl.style.color = success ? '#064e3b' : '#111827';
+      statusEl.style.color = success ? '#064e3b' : (error ? '#991b1b' : '#111827');
     }
 
     function saveCheckin(time, distance) {
@@ -188,7 +195,12 @@
 
     function checkin() {
       if (!navigator.geolocation) {
-        updateStatus('อุปกรณ์หรือเบราว์เซอร์ของคุณไม่รองรับ Geolocation.', false);
+        updateStatus('อุปกรณ์หรือเบราว์เซอร์ของคุณไม่รองรับ Geolocation.', false, true);
+        return;
+      }
+
+      if (!window.isSecureContext) {
+        updateStatus('ต้องเปิดหน้านี้ผ่าน HTTPS หรือ localhost เพื่อให้ระบบตำแหน่งทำงาน', false, true);
         return;
       }
 
@@ -205,7 +217,7 @@
             updateStatus(`เช็คชื่อสำเร็จ! ระยะห่างจากสถานที่ ${Math.round(distance)} เมตร. เวลา ${timestamp}`, true);
             saveCheckin(timestamp, distance);
           } else {
-            updateStatus(`อยู่ไกลจากจุดเช็คชื่อ ${Math.round(distance)} เมตร เกินรัศมี ${allowedRadius} เมตร.`, false);
+            updateStatus(`อยู่ไกลจากจุดเช็คชื่อ ${Math.round(distance)} เมตร เกินรัศมี ${allowedRadius} เมตร.`, false, true);
           }
 
           checkinButton.disabled = false;
@@ -215,7 +227,7 @@
           if (error.code === 1) message = 'ปฏิเสธการใช้งานตำแหน่ง';
           if (error.code === 2) message = 'ไม่สามารถค้นหาตำแหน่งปัจจุบันได้';
           if (error.code === 3) message = 'หมดเวลาการค้นหาตำแหน่ง';
-          updateStatus(`${message}.`, false);
+          updateStatus(`${message}: ${error.message || 'กรุณาลองใหม่อีกครั้ง'}.`, false, true);
           checkinButton.disabled = false;
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
